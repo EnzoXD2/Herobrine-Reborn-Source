@@ -14,6 +14,7 @@ import openfl.display.StageScaleMode;
 //crash handler stuff
 #if CRASH_HANDLER
 import lime.app.Application;
+import lime.system.System;
 import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
 import haxe.io.Path;
@@ -42,6 +43,33 @@ class Main extends Sprite
 	{
 		Lib.current.addChild(new Main());
 	}
+	
+	private static var dataPath:String = null;
+
+    static public function getDataPath():String 
+    {
+        if (dataPath != null && dataPath.length > 0) 
+        {
+            return dataPath;
+        } 
+        else 
+        {
+            #if mobile
+            if (FileSystem.exists("/storage/emulated/0/Android/data/" + Application.current.meta.get("packageName") + "/files/")) 
+            {
+                dataPath = "/storage/emulated/0/Android/data/" + Application.current.meta.get("packageName") + "/files/";
+            } 
+            else 
+            {
+                Application.current.window.alert("couldn't find directory: " + "/storage/emulated/0/Android/data/" + Application.current.meta.get("packageName") + "/files/" + "\n" + "try creating it and copying assets/assets, assets/mods from Android/data","an ERROR occured");
+                dataPath = System.applicationStorageDirectory;
+            }
+            #else
+                dataPath = "";
+            #end
+        }
+        return dataPath;
+    }
 
 	public function new()
 	{
