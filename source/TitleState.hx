@@ -99,6 +99,10 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+		#if android
+	        FlxG.android.preventDefaultKeys = [BACK];
+	        #end
+			
 		CoolUtil.takeOutTheTrash();
 
 		var taskList = new Process("tasklist", []);
