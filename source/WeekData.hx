@@ -92,7 +92,7 @@ class WeekData {
 		#if MODS_ALLOWED
 		var disabledMods:Array<String> = [];
 		var modsListPath:String = 'modsList.txt';
-		var directories:Array<String> = [Paths.mods(), Paths.getPreloadPath()];
+		var directories:Array<String> = [Paths.mods(), SUtil.getStorageDirectory() + Paths.getPreloadPath()];
 		var originalLength:Int = directories.length;
 		if(FileSystem.exists(modsListPath))
 		{
